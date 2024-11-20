@@ -40,5 +40,5 @@ terraform.rc
 # End of https://www.toptal.com/developers/gitignore/api/terraform
 
 .DS_Store
-ssh-key/*
-!ssh-key/.gitkeep
+modules/ec2/ssh_key/*
+!modules/ec2/ssh_key/.gitkeep

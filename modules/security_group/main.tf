@@ -4,7 +4,7 @@
 resource "aws_security_group" "ec2_sg" {
   name        = "${var.user}-${var.project}-ec2-sg"
   description = "This is a security group for ec2."
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = {
     Name    = "${var.user}-${var.project}-ec2-sg"
@@ -55,7 +55,7 @@ resource "aws_security_group_rule" "ec2_sg_out" {
 resource "aws_security_group" "rds_sg" {
   name        = "${var.user}-${var.project}-rds-sg"
   description = "This is a security group for rds."
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = {
     Name    = "${var.user}-${var.project}-rds-sg"
