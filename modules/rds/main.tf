@@ -14,7 +14,7 @@ resource "aws_db_parameter_group" "rds_param_gr" {
     value = "utf8mb4"
   }
   parameter {
-    name = "time_zone"
+    name  = "time_zone"
     value = "Asia/Tokyo"
   }
 }
@@ -34,8 +34,8 @@ resource "aws_db_option_group" "rds_opt_gr" {
 resource "aws_db_subnet_group" "rds_subnet_gr" {
   name = "${var.user}-${var.project}-rds-subnet-gr"
   subnet_ids = [
-    aws_subnet.private_subnet_1a.id,
-    aws_subnet.private_subnet_1c.id,
+    var.private_subnet_1a_id,
+    var.private_subnet_1c_id,
   ]
 
   tags = {
@@ -71,7 +71,7 @@ resource "aws_db_instance" "rds_instance" {
   multi_az               = false
   availability_zone      = "ap-northeast-1a"
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_gr.name
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  vpc_security_group_ids = [var.rds_sg_id]
   publicly_accessible    = false
   port                   = 3306
 

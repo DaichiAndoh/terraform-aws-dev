@@ -24,7 +24,7 @@ data "aws_ami" "ec2_ami" {
 # ==================================
 resource "aws_key_pair" "ec2_key_pair" {
   key_name   = "${var.user}-${var.project}-ec2-key-pair"
-  public_key = file("./ssh-key/ec2-keypair.pub")
+  public_key = file("../../modules/ec2/ssh_key/ec2_keypair.pub")
 
   tags = {
     Name    = "${var.user}-${var.project}-ec2-key-pair"
@@ -39,10 +39,10 @@ resource "aws_key_pair" "ec2_key_pair" {
 resource "aws_instance" "ec2" {
   ami                         = data.aws_ami.ec2_ami.id
   instance_type               = "t2.micro"
-  subnet_id                   = aws_subnet.public_subnet_1a.id
+  subnet_id                   = var.public_subnet_1a_id
   associate_public_ip_address = true
   vpc_security_group_ids = [
-    aws_security_group.ec2_sg.id
+    var.ec2_sg_id
   ]
   key_name = aws_key_pair.ec2_key_pair.key_name
 
